@@ -1,0 +1,31 @@
+@host = http://localhost:5088
+
+### Restaurant catalogue
+GET {{host}}/api/restaurants
+
+### Menu of the first restaurant
+GET {{host}}/api/restaurants/1/menu
+
+### Loyalty points before purchase (80 for seeded customer)
+GET {{host}}/api/loyalty/Олена
+
+### Create an order and redeem 30 points
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Олена",
+  "restaurantId": 1,
+  "items": [
+    { "menuItemId": 101, "quantity": 1 },
+    { "menuItemId": 102, "quantity": 1 },
+    { "menuItemId": 103, "quantity": 1 }
+  ],
+  "redeemPoints": 30
+}
+
+### Orders list after POST
+GET {{host}}/api/orders
+
+### Loyalty after purchase (80 - 30 + floor(320 / 10) = 82)
+GET {{host}}/api/loyalty/Олена
